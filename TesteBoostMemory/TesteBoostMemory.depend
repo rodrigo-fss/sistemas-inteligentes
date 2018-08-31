@@ -1,0 +1,22 @@
+# depslib dependency file v1.0
+1513778720 source:/home/dainf/Desktop/TesteBoostMemory/main.cpp
+	<iostream>
+	<boost/interprocess/managed_shared_memory.hpp>
+	<boost/interprocess/offset_ptr.hpp>
+
+1520946736 source:/home/dainf/Desktop/Boost_Memorias progamas/Bost_Projetos/TesteBoostMemory/main.cpp
+	<stdio.h>
+	<iostream>
+	<boost/interprocess/managed_shared_memory.hpp>
+	<boost/interprocess/offset_ptr.hpp>
+	<sys/ioctl.h>
+	<termios.h>
+
+1535590514 source:/home/chocoguy/Desktop/4 Semestre/Sistemas Inteligentes/Fabro/TesteBoostMemory/main.cpp
+	<stdio.h>
+	<iostream>
+	<boost/interprocess/managed_shared_memory.hpp>
+	<boost/interprocess/offset_ptr.hpp>
+	<sys/ioctl.h>
+	<termios.h>
+
