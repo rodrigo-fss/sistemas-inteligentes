@@ -59,7 +59,6 @@ int main()
 
     pos_init = pos_make(0,0);
     pos_end = pos_make(3,9);
-    delete(pos_init);
 
     caminho = new int[300];
 
@@ -73,9 +72,9 @@ int main()
     }
     print_labirinto(labirinto);
     cout.flush();
-
-    caminho = busca_largura(labirinto, caminho, *pos_init, *pos_end);
-
+    printf("chamei busca\n");
+    caminho = busca_largura(labirinto, caminho, pos_init, pos_end);
+    printf("sai busca\n");
     print_labirinto(labirinto);
     cout.flush();
 
@@ -96,7 +95,7 @@ int main()
     /**============================================**/
 
 
-
+    printf("começando controle\n");
 
 
     /****/
