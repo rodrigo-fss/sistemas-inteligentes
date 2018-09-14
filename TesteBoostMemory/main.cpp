@@ -30,38 +30,36 @@ int main()
     int* comando1;
     comando1 = dinamica->construct<int>(NOME_DO_INT_NA_MEMORIA1)();
 
-
     std::cout<<"Alocou!!!" << endl;
     cout.flush();
-
-
 
     //abrindo as variaveis da memoria
     //(parte que seria feita no outro programa)
     managed_shared_memory* abrindo_memoria;
     bool opened = false;
-    while(!opened)
-    {
-        try
-        {
-            abrindo_memoria = new managed_shared_memory (open_only, NOME_DA_MEMORIA2);
-            opened = true;
-        }
-        catch(...)
-        {
-            std::cout<<"erro ao abrir memoria 2"<<std::endl;
-            sleep(1);
-        }
-    }
+//    while(!opened)
+//    {
+//        try
+//        {
+//            abrindo_memoria = new managed_shared_memory (open_only, NOME_DA_MEMORIA2);
+//            opened = true;
+//        }
+//        catch(...)
+//        {
+//            std::cout<<"erro ao abrir memoria 2"<<std::endl;
+//            sleep(1);
+//        }
+//    }
     std::cout<<"Abriu a memoria compartilhada!!!" << endl;
     cout.flush();
 
     /**============================================**/
     int *caminho, labirinto[TAMANHO_LAB][TAMANHO_LAB];
-    Position pos_init, pos_end;
+    Position *pos_init, *pos_end;
 
-    pos_init = pos_make(0,0);
-    pos_end = pos_make(9,9);
+    *pos_init = pos_make(0,0);
+    *pos_end = pos_make(3,9);
+    delete(pos_init);
 
     caminho = new int[300];
 
@@ -74,8 +72,13 @@ int main()
         }
     }
     print_labirinto(labirinto);
+    cout.flush();
 
     caminho = busca_largura(labirinto, caminho, pos_init, pos_end);
+
+    print_labirinto(labirinto);
+    cout.flush();
+
 
     caminho[0] = 8;
     caminho[1] = 8;
@@ -86,8 +89,18 @@ int main()
     //delete(caminho);
     /**==========================================================**/
 
+
+    /**============================================**/
+
+
+    /**============================================**/
+
+
+
+
+
     /****/
-    int qnt_caminho = 5;
+    int qnt_caminho = 5;cout.flush();
     int caminho_atual = 0;
     /****/
 
@@ -99,12 +112,15 @@ int main()
 
 
         cout << "8)Frente" << endl << "6)Direita " << endl << "4)Esquerda" << endl;
-        //cin >> (*comando1);
+//        cin >> (*comando1);
 
         /****/
         printf("\n Executando comando: %d .\n", caminho[caminho_atual]);
         (*comando1) << caminho[caminho_atual];
         *comando1 = caminho[caminho_atual];
+        std::cout << *comando1 << endl;
+        caminho[caminho_atual] >> *comando1;
+        std::cout << *comando1 << endl;
         caminho_atual++;
         /****/
 

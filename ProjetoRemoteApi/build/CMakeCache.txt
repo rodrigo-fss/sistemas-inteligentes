@@ -198,10 +198,10 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
 
 //Value Computed by CMake
-cppremoteapi_BINARY_DIR:STATIC=/home/laser/Desktop/Simulador/ProjetoRemoteApi/build
+cppremoteapi_BINARY_DIR:STATIC=/home/chocoguy/Desktop/4 Semestre/Sistemas Inteligentes/sistemas-inteligentes/ProjetoRemoteApi/build
 
 //Value Computed by CMake
-cppremoteapi_SOURCE_DIR:STATIC=/home/laser/Desktop/Simulador/ProjetoRemoteApi
+cppremoteapi_SOURCE_DIR:STATIC=/home/chocoguy/Desktop/4 Semestre/Sistemas Inteligentes/sistemas-inteligentes/ProjetoRemoteApi
 
 
 ########################

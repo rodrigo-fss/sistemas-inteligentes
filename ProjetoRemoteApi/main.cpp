@@ -102,6 +102,7 @@ int main(int argc, char **argv)
     ///Procurando memória
     managed_shared_memory* abrindo_memoria;
     int i=0;
+
     bool opened = false;
     while(!opened)
     {
@@ -180,6 +181,19 @@ int main(int argc, char **argv)
         readingMVS = DataMVS[10]<MAX_INTE;
         readingRMVS = DataRMVS[10]<MAX_INTE;
         readingRVS = DataRVS[10]<MAX_INTE;
+
+
+
+        /****/
+
+
+        /****/
+
+
+
+
+
+
 
         //linha reta (se nao estiver perto de um obstaculo)
 		if (*(comando1.first) == 8 && readingMU==0)
@@ -464,6 +478,7 @@ int main(int argc, char **argv)
         //zera variaveis e manda o robo parar
         X_inicial = 0;
         Y_inicial = 0;
+
         dx = 0;
         dy = 0;
         d_ang = 0;

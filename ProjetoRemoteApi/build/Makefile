@@ -48,10 +48,10 @@ RM = /usr/local/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/laser/Desktop/Simulador/ProjetoRemoteApi
+CMAKE_SOURCE_DIR = /home/chocoguy/Desktop/cmake-3.12.1/Source
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/laser/Desktop/Simulador/ProjetoRemoteApi/build
+CMAKE_BINARY_DIR = /home/chocoguy/Desktop/cmake-3.12.1
 
 #=============================================================================
 # Targets provided globally by CMake.

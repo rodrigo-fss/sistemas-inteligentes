@@ -20,3 +20,16 @@
 	<sys/ioctl.h>
 	<termios.h>
 
+1536005770 source:/home/chocoguy/Desktop/4 Semestre/Sistemas Inteligentes/sistemas-inteligentes/TesteBoostMemory/main.cpp
+	<stdio.h>
+	<iostream>
+	<boost/interprocess/managed_shared_memory.hpp>
+	<boost/interprocess/offset_ptr.hpp>
+	<sys/ioctl.h>
+	<termios.h>
+	"busca.hpp"
+
+1536168835 /home/chocoguy/Desktop/4 Semestre/Sistemas Inteligentes/sistemas-inteligentes/TesteBoostMemory/busca.hpp
+	<stdio.h>
+	<queue>
+
