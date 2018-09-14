@@ -1,12 +1,12 @@
 #include "busca.hpp"
 
 
-*Position pos_make(int x, int y)
+Position* pos_make(int x, int y)
 {
-    Position pos = new Position[1];
-    pos.x = x;
-    pos.y = y;
-    return &pos;
+    Position *pos = new Position();
+    pos->x = x;
+    pos->y = y;
+    return pos;
 }
 
 void print_labirinto(int lab[TAMANHO_LAB][TAMANHO_LAB])
@@ -22,10 +22,10 @@ void print_labirinto(int lab[TAMANHO_LAB][TAMANHO_LAB])
     }
 }
 
-Position* get_vizinhos(Position pos, int labirinto[TAMANHO_LAB][TAMANHO_LAB])
+Position** get_vizinhos(Position pos, int labirinto[TAMANHO_LAB][TAMANHO_LAB])
 {
-    Position *vizinhos;
-    vizinhos = new Position[4];
+    Position **vizinhos;
+    *vizinhos = new Position[4];
     // POS:
     // [0] = FRENTE Y+1
     // [1] = DIREITA X+1
@@ -67,7 +67,7 @@ Position* get_vizinhos(Position pos, int labirinto[TAMANHO_LAB][TAMANHO_LAB])
 
 int* busca_largura (int labirinto[TAMANHO_LAB][TAMANHO_LAB], int* caminho, Position inicio, Position fim)
 {
-    Position *vizinhos, *sequencia;
+    Position **vizinhos, *sequencia;
     Position atual = inicio;
 std:
     queue<Position> fila;
@@ -79,21 +79,19 @@ std:
     {
         //pegar o próximo
         atual = fila.front();
-//        atual.veiodaqui = antigo;
-//        antigo = atual;
         //visitar os vizinhos
         vizinhos = get_vizinhos(atual, labirinto);
         int i;
         for(i=0; i<4; i++)
         {
-            if(vizinhos[i].x == -1)
+            if(vizinhos[i]->x == -1)
             {
                 continue;
-            }else if(labirinto[vizinhos[i].x][vizinhos[i].y] != 7 && labirinto[vizinhos[i].x][vizinhos[i].y] != 1) //se não está marcado;
+            }else if(labirinto[vizinhos[i]->x][vizinhos[i]->y] != 7 && labirinto[vizinhos[i]->x][vizinhos[i]->y] != 1) //se não está marcado;
             {
-                labirinto[vizinhos[i].x][vizinhos[i].y] = 7; //visita vizinho
-                fila.push(vizinhos[i]);
-                if(vizinhos[i].x == fim.x && vizinhos[i].y == fim.y)
+                labirinto[vizinhos[i]->x][vizinhos[i]->y] = 7; //visita vizinho
+                fila.push(*vizinhos[i]);
+                if(vizinhos[i]->x == fim.x && vizinhos[i]->y == fim.y)
                 {
                     printf("Cheguei no fim.\n Tamanho é: %d\n", (int)fila.size());
                     return caminho;
