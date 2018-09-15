@@ -57,6 +57,8 @@ int main()
     int labirinto[TAMANHO_LAB][TAMANHO_LAB];
     Position *caminho, *pos_init, *pos_end;
 
+    int tam_caminho;
+
     pos_init = pos_make(0,0);
     pos_end = pos_make(3,9);
 
@@ -80,10 +82,11 @@ int main()
     print_labirinto(labirinto);
     cout.flush();
     printf("chamei busca\n");
-    caminho = busca_largura(labirinto, pos_init, pos_end);
+    caminho = busca_largura(labirinto, pos_init, pos_end, &tam_caminho);
     printf("sai busca\n");
+    printf("tamanho do caminho é: %d\n", tam_caminho);
 
-    for(i = 0; i < 18; i++)
+    for(i = 0; i < tam_caminho; i++)
     {
         printf("X: %d, Y: %d\n",caminho[i].x,caminho[i].y);
     }

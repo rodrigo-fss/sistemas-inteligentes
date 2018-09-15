@@ -14,8 +14,8 @@ typedef struct pos
     struct pos *pai;
 }Position;
 
-Position* busca_largura (int labirinto[TAMANHO_LAB][TAMANHO_LAB], Position *inicio, Position *fim);
-Position* busca_aestrela (int labirinto[TAMANHO_LAB][TAMANHO_LAB], Position inicio, Position fim);
+Position* busca_largura (int labirinto[TAMANHO_LAB][TAMANHO_LAB], Position *inicio, Position *fim, int *tam_caminho);
+Position* busca_aestrela (int labirinto[TAMANHO_LAB][TAMANHO_LAB], Position *inicio, Position *fim);
 Position* pos_make(int x, int y);
 void print_labirinto(int lab[TAMANHO_LAB][TAMANHO_LAB]);
 Position** get_vizinhos(Position *pos, int labirinto[TAMANHO_LAB][TAMANHO_LAB]);
