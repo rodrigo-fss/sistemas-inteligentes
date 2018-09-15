@@ -54,13 +54,11 @@ int main()
     cout.flush();
 
     /**============================================**/
-    int *caminho, labirinto[TAMANHO_LAB][TAMANHO_LAB];
-    Position *pos_init, *pos_end;
+    int labirinto[TAMANHO_LAB][TAMANHO_LAB];
+    Position *caminho, *pos_init, *pos_end;
 
     pos_init = pos_make(0,0);
     pos_end = pos_make(3,9);
-
-    caminho = new int[300];
 
     int i,l;
     for(i = 0; i < TAMANHO_LAB; i++)
@@ -70,20 +68,30 @@ int main()
             labirinto[i][l] = 0;
         }
     }
+
+    labirinto[0][4] = 1;
+    labirinto[1][4] = 1;
+    labirinto[2][4] = 1;
+    labirinto[3][4] = 1;
+    labirinto[4][4] = 1;
+    labirinto[5][4] = 1;
+
+
     print_labirinto(labirinto);
     cout.flush();
     printf("chamei busca\n");
-    caminho = busca_largura(labirinto, caminho, pos_init, pos_end);
+    caminho = busca_largura(labirinto, pos_init, pos_end);
     printf("sai busca\n");
+
+    for(i = 0; i < 18; i++)
+    {
+        printf("X: %d, Y: %d\n",caminho[i].x,caminho[i].y);
+    }
+
+
     print_labirinto(labirinto);
     cout.flush();
 
-
-    caminho[0] = 8;
-    caminho[1] = 8;
-    caminho[2] = 4;
-    caminho[3] = 8;
-    caminho[4] = 8;
 
     //delete(caminho);
     /**==========================================================**/
@@ -114,14 +122,14 @@ int main()
 //        cin >> (*comando1);
 
         /****/
-        printf("\n Executando comando: %d .\n", caminho[caminho_atual]);
-        (*comando1) << caminho[caminho_atual];
-        *comando1 = caminho[caminho_atual];
-        std::cout << *comando1 << endl;
-        caminho[caminho_atual] >> *comando1;
-        std::cout << *comando1 << endl;
-        caminho_atual++;
-        /****/
+//        printf("\n Executando comando: %d .\n", caminho[caminho_atual]);
+//        (*comando1) << caminho[caminho_atual];
+//        *comando1 = caminho[caminho_atual];
+//        std::cout << *comando1 << endl;
+//        caminho[caminho_atual] >> *comando1;
+//        std::cout << *comando1 << endl;
+//        caminho_atual++;
+//        /****/
 
         shared_memory_object::remove(NOME_DA_MEMORIA);
         sleep(5);

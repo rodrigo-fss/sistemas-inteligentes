@@ -66,12 +66,13 @@ Position** get_vizinhos(Position *pos, int labirinto[TAMANHO_LAB][TAMANHO_LAB])
 }
 
 
-int* busca_largura (int labirinto[TAMANHO_LAB][TAMANHO_LAB], int* caminho, Position *inicio, Position *fim)
+Position* busca_largura (int labirinto[TAMANHO_LAB][TAMANHO_LAB], Position *inicio, Position *fim)
 {
     Position **vizinhos;
-    Position *atual = inicio;
+    Position *caminho, *atual = inicio;
 std:
     queue<Position*> fila;
+    stack<Position> pilha;
 
     labirinto[atual->x][atual->y] = 7;
     atual->pai = NULL;
@@ -92,34 +93,37 @@ std:
                 continue;
             }else if(labirinto[vizinhos[i]->x][vizinhos[i]->y] != 7 && labirinto[vizinhos[i]->x][vizinhos[i]->y] != 1) //se não está marcado;
             {
-                labirinto[vizinhos[i]->x][vizinhos[i]->y] = 7; //visita vizinho
+                labirinto[vizinhos[i]->x][vizinhos[i]->y] = 7; /**visita vizinho**/
                 vizinhos[i]->pai = atual;
                 fila.push(vizinhos[i]);
                 if(vizinhos[i]->x == fim->x && vizinhos[i]->y == fim->y)
                 {
-                    printf("Cheguei no fim.\n Tamanho é: %d\n", (int)fila.size());
-                    printf("Pos inicial: X: %d, Y: %d\n", inicio->x, inicio->y);
-                    printf("Pos final: X: %d, Y: %d\n", fim->x, fim->y);
                     Position *voltando = vizinhos[i];
+                    //faz caminho de volta
                     while(voltando->pai != NULL)
                     {
-                        printf("X: %d, Y: %d\n",voltando->x, voltando->y);
+                        pilha.push(*voltando);
                         voltando = voltando->pai;
+                    }
+                    //insere caminho em ordem
+                    caminho = new Position[pilha.size()];
+                    int h = 0;
+                    while(!pilha.empty())
+                    {
+                        caminho[h] = pilha.top();
+                        h++;
+                        pilha.pop();
                     }
                     return caminho;
                 }
             }
         }
         fila.pop();
-
-
     }
-
-    caminho[0] = 5;
     return caminho;
 }
 
-int* busca_aestrela (int labirinto[TAMANHO_LAB][TAMANHO_LAB], int* caminho, Position inicio, Position fim)
+Position* busca_aestrela (int labirinto[TAMANHO_LAB][TAMANHO_LAB], Position inicio, Position fim)
 {
 
 }
