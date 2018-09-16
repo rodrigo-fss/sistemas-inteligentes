@@ -142,6 +142,71 @@ std:
     return caminho;
 }
 
+int* get_moves(Position* caminho, int tam_caminho){
+    int *movimentos, ind_movimentos = 0, xo, yo, ind_vizinhos, i, diferencaX, diferencaY;
+    movimentos = new int[tam_caminho*3];
+    Robot robo;
+
+    robo.in = pos_make(caminho->x, caminho->y);
+    robo.olhando = pos_make(caminho->x-1, caminho->y);  
+
+    for(i = 1; i < tam_caminho; i++){
+
+        ind_vizinhos = 0 ;
+        while(caminho[i].x != robo.olhando->x || caminho[i].y != robo.olhando->y){
+            if(ind_vizinhos > 3){
+                printf("Caminho quebrado");
+                break;
+            }
+
+            if(robo.in->x != robo.olhando->x){
+                if(robo.in->x < robo.olhando->x){
+                    robo.olhando->x--;
+                    robo.olhando->y++;
+                }
+                else{
+                    robo.olhando->x++;
+                    robo.olhando->y--;
+                }
+            }
+            else{
+                if(robo.in->y < robo.olhando->y){
+                    robo.olhando->x--;
+                    robo.olhando->y--;
+                }
+                else{
+                    robo.olhando->x++;
+                    robo.olhando->y++;
+                }
+            }
+
+            ind_vizinhos++;
+            movimentos[ind_movimentos] = 4;
+            ind_movimentos++;
+        }
+
+        diferencaX = robo.in->x - robo.olhando->x;
+        diferencaY = robo.in->y - robo.olhando->y;
+
+        robo.in->x = robo.olhando->x;
+        robo.in->y = robo.olhando->y;
+
+        robo.olhando->x -= diferencaX;
+        robo.olhando->y -= diferencaY;            
+
+        movimentos[ind_movimentos] = 8;
+        ind_movimentos++;
+    }
+    movimentos[ind_movimentos] = -1;
+
+    /*i=0;
+    printf("\n\n");
+    while(movimentos[i] != -1){
+        printf("movimento: %d\n", movimentos[i]);
+        i++;
+    }*/
+    return movimentos;
+}
 
 
 /**=====================

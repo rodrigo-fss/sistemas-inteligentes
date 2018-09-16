@@ -57,10 +57,10 @@ int main()
     int labirinto[TAMANHO_LAB][TAMANHO_LAB];
     Position *caminho, *pos_init, *pos_end;
 
-    int tam_caminho, i, l;
+    int tam_caminho, i, l, *movimentos;
 
-    pos_init = pos_make(0,0);
-    pos_end = pos_make(3,9);
+    pos_init = pos_make(9,9);
+    pos_end = pos_make(2,7);
 
 
     /**============
@@ -83,11 +83,16 @@ int main()
     labirinto[3][4] = 1;
     labirinto[4][4] = 1;
     labirinto[5][4] = 1;
+    labirinto[pos_init->x][pos_init->y] = 2;
+    labirinto[pos_end->x][pos_end->y] = 3;
 
     print_labirinto(labirinto);
     cout.flush();
     printf("chamei busca em largura\n");
     caminho = busca_largura(labirinto, pos_init, pos_end, &tam_caminho);
+    printf("voltei da busca em largura\n");
+    movimentos = new int[tam_caminho*3];
+    movimentos = get_moves(caminho, tam_caminho);
     printf("sai busca\n");
     printf("tamanho do caminho é: %d\n", tam_caminho);
 
@@ -99,9 +104,10 @@ int main()
     cout.flush();
 
 
+
     /**============
         A ESTRELA
-    ==============**/
+    ==============*
 
     printf("\n============\n A ESTRELA\n============\n");
 
@@ -120,6 +126,8 @@ int main()
     labirinto[3][4] = 1;
     labirinto[4][4] = 1;
     labirinto[5][4] = 1;
+    labirinto[pos_init->x][pos_init->y] = 2;
+    labirinto[pos_end->x][pos_end->y] = 3;
 
     print_labirinto(labirinto);
     cout.flush();
@@ -162,17 +170,17 @@ int main()
 
 
         cout << "8)Frente" << endl << "6)Direita " << endl << "4)Esquerda" << endl;
-//        cin >> (*comando1);
+        cin >> (*comando1);
 
         /****/
-//        printf("\n Executando comando: %d .\n", caminho[caminho_atual]);
-//        (*comando1) << caminho[caminho_atual];
-//        *comando1 = caminho[caminho_atual];
-//        std::cout << *comando1 << endl;
-//        caminho[caminho_atual] >> *comando1;
-//        std::cout << *comando1 << endl;
-//        caminho_atual++;
-//        /****/
+        printf("\n Executando comando: %d .\n", caminho[caminho_atual]);
+        (*comando1) << caminho[caminho_atual];
+        *comando1 = caminho[caminho_atual];
+        std::cout << *comando1 << endl;
+        caminho[caminho_atual] >> *comando1;
+        std::cout << *comando1 << endl;
+        caminho_atual++;
+        /****/
 
         shared_memory_object::remove(NOME_DA_MEMORIA);
         sleep(5);
