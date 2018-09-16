@@ -57,12 +57,18 @@ int main()
     int labirinto[TAMANHO_LAB][TAMANHO_LAB];
     Position *caminho, *pos_init, *pos_end;
 
-    int tam_caminho;
+    int tam_caminho, i, l;
 
     pos_init = pos_make(0,0);
     pos_end = pos_make(3,9);
 
-    int i,l;
+
+    /**============
+        LARGURA
+    ==============**/
+
+    printf("\n============\n LARGURA\n============\n");
+
     for(i = 0; i < TAMANHO_LAB; i++)
     {
         for(l = 0; l < TAMANHO_LAB; l++)
@@ -78,10 +84,9 @@ int main()
     labirinto[4][4] = 1;
     labirinto[5][4] = 1;
 
-
     print_labirinto(labirinto);
     cout.flush();
-    printf("chamei busca\n");
+    printf("chamei busca em largura\n");
     caminho = busca_largura(labirinto, pos_init, pos_end, &tam_caminho);
     printf("sai busca\n");
     printf("tamanho do caminho é: %d\n", tam_caminho);
@@ -90,11 +95,45 @@ int main()
     {
         printf("X: %d, Y: %d\n",caminho[i].x,caminho[i].y);
     }
-
-
     print_labirinto(labirinto);
     cout.flush();
 
+
+    /**============
+        A ESTRELA
+    ==============**/
+
+    printf("\n============\n A ESTRELA\n============\n");
+
+
+    for(i = 0; i < TAMANHO_LAB; i++)
+    {
+        for(l = 0; l < TAMANHO_LAB; l++)
+        {
+            labirinto[i][l] = 0;
+        }
+    }
+
+    labirinto[0][4] = 1;
+    labirinto[1][4] = 1;
+    labirinto[2][4] = 1;
+    labirinto[3][4] = 1;
+    labirinto[4][4] = 1;
+    labirinto[5][4] = 1;
+
+    print_labirinto(labirinto);
+    cout.flush();
+    printf("chamei busca A Estrela\n");
+    caminho = busca_aestrela(labirinto, pos_init, pos_end, &tam_caminho);
+    printf("sai busca\n");
+    printf("tamanho do caminho é: %d\n", tam_caminho);
+
+    for(i = 0; i < tam_caminho; i++)
+    {
+        printf("X: %d, Y: %d\n",caminho[i].x,caminho[i].y);
+    }
+    print_labirinto(labirinto);
+    cout.flush();
 
     //delete(caminho);
     /**==========================================================**/
@@ -110,7 +149,8 @@ int main()
 
 
     /****/
-    int qnt_caminho = 5;cout.flush();
+    int qnt_caminho = 5;
+    cout.flush();
     int caminho_atual = 0;
     /****/
 
