@@ -1,3 +1,16 @@
+/**
+==========================================================
+||      UNIVERSIDADE TECNOLÓGICA FEDERAL DO PARANÁ      ||
+||                  Curitiba, 2018/2                    ||
+||                                                      ||
+||      Eduardo Darrazão    RA: 1906399                 ||
+||      Rodrigo Faria       RA:                         ||
+||                                                      ||
+||      Disciplina: Sistemas Inteligentes - CSI30-S73   ||
+||      Professor:  João Alberto Fabro                  ||
+==========================================================
+**/
+
 #include "busca.hpp"
 
 //
@@ -146,7 +159,8 @@ std:
 //
 //
 //
-int* get_moves(Position* caminho, int tam_caminho){
+int* get_moves(Position* caminho, int tam_caminho)
+{
     int *movimentos, ind_movimentos = 0, xo, yo, ind_vizinhos, i, diferencaX, diferencaY;
     movimentos = new int[tam_caminho*3];
     Robot robo;
@@ -154,31 +168,40 @@ int* get_moves(Position* caminho, int tam_caminho){
     robo.in = pos_make(caminho->x, caminho->y);
     robo.olhando = pos_make(caminho->x-1, caminho->y);
 
-    for(i = 1; i < tam_caminho; i++){
+    for(i = 1; i < tam_caminho; i++)
+    {
 
         ind_vizinhos = 0 ;
-        while(caminho[i].x != robo.olhando->x || caminho[i].y != robo.olhando->y){
-            if(ind_vizinhos > 3){
+        while(caminho[i].x != robo.olhando->x || caminho[i].y != robo.olhando->y)
+        {
+            if(ind_vizinhos > 3)
+            {
                 printf("Caminho quebrado");
                 break;
             }
 
-            if(robo.in->x != robo.olhando->x){
-                if(robo.in->x < robo.olhando->x){
+            if(robo.in->x != robo.olhando->x)
+            {
+                if(robo.in->x < robo.olhando->x)
+                {
                     robo.olhando->x--;
                     robo.olhando->y++;
                 }
-                else{
+                else
+                {
                     robo.olhando->x++;
                     robo.olhando->y--;
                 }
             }
-            else{
-                if(robo.in->y < robo.olhando->y){
+            else
+            {
+                if(robo.in->y < robo.olhando->y)
+                {
                     robo.olhando->x--;
                     robo.olhando->y--;
                 }
-                else{
+                else
+                {
                     robo.olhando->x++;
                     robo.olhando->y++;
                 }

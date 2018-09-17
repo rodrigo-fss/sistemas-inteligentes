@@ -1,10 +1,16 @@
 //TesteBoostMemory
-
-
-//TIPO_BUSCA define qual método será utilizado, sendo:
-// 1: Busca Cega - Largura
-// 2: Heurística - A Estrela
-#define TIPO_BUSCA 1
+/**
+==========================================================
+||      UNIVERSIDADE TECNOLÓGICA FEDERAL DO PARANÁ      ||
+||                  Curitiba, 2018/2                    ||
+||                                                      ||
+||      Eduardo Darrazão    RA: 1906399                 ||
+||      Rodrigo Faria       RA:                         ||
+||                                                      ||
+||      Disciplina: Sistemas Inteligentes - CSI30-S73   ||
+||      Professor:  João Alberto Fabro                  ||
+==========================================================
+**/
 
 #include <stdio.h>
 #include <iostream>

@@ -1,6 +1,19 @@
 #ifndef BUSCA_HPP_INCLUDED
 #define BUSCA_HPP_INCLUDED
 
+/**
+==========================================================
+||      UNIVERSIDADE TECNOLÓGICA FEDERAL DO PARANÁ      ||
+||                  Curitiba, 2018/2                    ||
+||                                                      ||
+||      Eduardo Darrazão    RA: 1906399                 ||
+||      Rodrigo Faria       RA:                         ||
+||                                                      ||
+||      Disciplina: Sistemas Inteligentes - CSI30-S73   ||
+||      Professor:  João Alberto Fabro                  ||
+==========================================================
+**/
+
 #include <stdio.h>
 #include <math.h>
 #include <queue>
@@ -8,6 +21,10 @@
 #include <vector>
 using namespace std;
 
+//TIPO_BUSCA define qual método será utilizado, sendo:
+// 1: Busca Cega - Largura
+// 2: Heurística - A Estrela
+#define TIPO_BUSCA 1
 #define INICIO_X 9
 #define INICIO_Y 9
 #define FIM_X 2
@@ -20,10 +37,11 @@ typedef struct pos
     struct pos *pai;
 } Position;
 
-typedef struct robot{
-	Position* in;
-	Position* olhando;
-}Robot;
+typedef struct robot
+{
+    Position* in;
+    Position* olhando;
+} Robot;
 
 Position* busca_largura (int labirinto[TAMANHO_LAB][TAMANHO_LAB], Position *inicio, Position *fim, int *tam_caminho);
 Position* busca_aestrela (int labirinto[TAMANHO_LAB][TAMANHO_LAB], Position *inicio, Position *fim, int *tam_caminho);
