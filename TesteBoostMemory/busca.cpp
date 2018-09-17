@@ -123,6 +123,7 @@ std:
                     pilha.push(*voltando);
                     voltando = voltando->pai;
                 }
+                pilha.push(*voltando);
                 //insere caminho em ordem
                 caminho = new Position[(int)pilha.size()];
                 *tam_caminho = (int)pilha.size();
@@ -142,13 +143,16 @@ std:
     return caminho;
 }
 
+//
+//
+//
 int* get_moves(Position* caminho, int tam_caminho){
     int *movimentos, ind_movimentos = 0, xo, yo, ind_vizinhos, i, diferencaX, diferencaY;
     movimentos = new int[tam_caminho*3];
     Robot robo;
 
     robo.in = pos_make(caminho->x, caminho->y);
-    robo.olhando = pos_make(caminho->x-1, caminho->y);  
+    robo.olhando = pos_make(caminho->x-1, caminho->y);
 
     for(i = 1; i < tam_caminho; i++){
 
@@ -192,19 +196,12 @@ int* get_moves(Position* caminho, int tam_caminho){
         robo.in->y = robo.olhando->y;
 
         robo.olhando->x -= diferencaX;
-        robo.olhando->y -= diferencaY;            
+        robo.olhando->y -= diferencaY;
 
         movimentos[ind_movimentos] = 8;
         ind_movimentos++;
     }
     movimentos[ind_movimentos] = -1;
-
-    /*i=0;
-    printf("\n\n");
-    while(movimentos[i] != -1){
-        printf("movimento: %d\n", movimentos[i]);
-        i++;
-    }*/
     return movimentos;
 }
 
@@ -299,6 +296,7 @@ std:
                 pilha.push(*atual);
                 atual = atual->pai;
             }
+            pilha.push(*atual);
             //insere caminho em ordem
             caminho = new Position[(int)pilha.size()];
             *tam_caminho = (int)pilha.size();

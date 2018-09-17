@@ -8,6 +8,10 @@
 #include <vector>
 using namespace std;
 
+#define INICIO_X 9
+#define INICIO_Y 9
+#define FIM_X 2
+#define FIM_Y 7
 #define TAMANHO_LAB 10
 
 typedef struct pos

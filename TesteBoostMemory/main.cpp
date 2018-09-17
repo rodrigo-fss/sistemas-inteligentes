@@ -1,5 +1,11 @@
 //TesteBoostMemory
 
+
+//TIPO_BUSCA define qual método será utilizado, sendo:
+// 1: Busca Cega - Largura
+// 2: Heurística - A Estrela
+#define TIPO_BUSCA 1
+
 #include <stdio.h>
 #include <iostream>
 #include <boost/interprocess/managed_shared_memory.hpp>
@@ -17,10 +23,130 @@ using namespace std;
 //para usar kbhit
 #include <sys/ioctl.h>
 #include <termios.h>
+
 #include "busca.hpp"
 
 int main()
 {
+    /**
+    ==================================================
+    ||          Parâmetros para Labirinto           ||
+    ==================================================
+    **/
+    int labirinto[TAMANHO_LAB][TAMANHO_LAB];
+    Position *caminho, *pos_init, *pos_end;
+
+    int tam_caminho, i, l, *movimentos;
+
+    pos_init = pos_make(INICIO_X,INICIO_Y);
+    pos_end = pos_make(FIM_X,FIM_Y);
+
+    switch(TIPO_BUSCA)
+    {
+    case 1:
+    {
+        /**===================
+        ||      LARGURA     ||
+        ====================**/
+
+        printf("\n============\n LARGURA\n============\n");
+
+        for(i = 0; i < TAMANHO_LAB; i++)
+        {
+            for(l = 0; l < TAMANHO_LAB; l++)
+            {
+                labirinto[i][l] = 0;
+            }
+        }
+
+        labirinto[5][4] = 1;
+        labirinto[5][5] = 1;
+        labirinto[5][6] = 1;
+        labirinto[5][7] = 1;
+        labirinto[5][8] = 1;
+        labirinto[5][9] = 1;
+        labirinto[pos_init->x][pos_init->y] = 2;
+        labirinto[pos_end->x][pos_end->y] = 3;
+        printf("Labirinto computado\n");
+        print_labirinto(labirinto);
+        cout.flush();
+
+        caminho = busca_largura(labirinto, pos_init, pos_end, &tam_caminho);
+        printf("Busca em Largura Concluida\n");
+
+        movimentos = new int[tam_caminho*3];
+        movimentos = get_moves(caminho, tam_caminho);
+        printf("movimentos computados\nSendo:\n");
+
+        for(i = 0; movimentos[i] != -1; i++)
+        {
+            printf("movimento: %d\n", movimentos[i]);
+        }
+
+        printf("tamanho do caminho é: %d\nSendo:\n", tam_caminho);
+        for(i = 0; i < tam_caminho; i++)
+        {
+            printf("X: %d, Y: %d\n",caminho[i].x,caminho[i].y);
+        }
+        cout.flush();
+        break;
+    }
+    case 2:
+    {
+        /**=====================
+        ||      A ESTRELA     ||
+        ======================**/
+
+        printf("\n============\n A ESTRELA\n============\n");
+
+
+        for(i = 0; i < TAMANHO_LAB; i++)
+        {
+            for(l = 0; l < TAMANHO_LAB; l++)
+            {
+                labirinto[i][l] = 0;
+            }
+        }
+
+        labirinto[5][4] = 1;
+        labirinto[5][5] = 1;
+        labirinto[5][6] = 1;
+        labirinto[5][7] = 1;
+        labirinto[5][8] = 1;
+        labirinto[5][9] = 1;
+        labirinto[pos_init->x][pos_init->y] = 2;
+        labirinto[pos_end->x][pos_end->y] = 3;
+        printf("Labirinto computado\n");
+        print_labirinto(labirinto);
+        cout.flush();
+
+        caminho = busca_aestrela(labirinto, pos_init, pos_end, &tam_caminho);
+        printf("Busca A Estrela Concluída\n");
+
+        movimentos = new int[tam_caminho*3];
+        movimentos = get_moves(caminho, tam_caminho);
+        printf("movimentos computados\nSendo:\n");
+
+        for(i = 0; movimentos[i] != -1; i++)
+        {
+            printf("movimento: %d\n", movimentos[i]);
+        }
+
+        printf("tamanho do caminho é: %d\nSendo:\n", tam_caminho);
+        for(i = 0; i < tam_caminho; i++)
+        {
+            printf("X: %d, Y: %d\n",caminho[i].x,caminho[i].y);
+        }
+        cout.flush();
+        break;
+    }
+    }
+
+    /**
+    ==============================================
+    ||          Integração com V-REP            ||
+    ==============================================
+    **/
     std::cout<<"Comecou!!!" << endl;
     cout.flush();
     shared_memory_object::remove(NOME_DA_MEMORIA);
@@ -37,155 +163,40 @@ int main()
     //(parte que seria feita no outro programa)
     managed_shared_memory* abrindo_memoria;
     bool opened = false;
-//    while(!opened)
-//    {
-//        try
-//        {
-//            abrindo_memoria = new managed_shared_memory (open_only, NOME_DA_MEMORIA2);
-//            opened = true;
-//        }
-//        catch(...)
-//        {
-//            std::cout<<"erro ao abrir memoria 2"<<std::endl;
-//            sleep(1);
-//        }
-//    }
+    while(!opened)
+    {
+        try
+        {
+            abrindo_memoria = new managed_shared_memory (open_only, NOME_DA_MEMORIA2);
+            opened = true;
+        }
+        catch(...)
+        {
+            std::cout<<"erro ao abrir memoria 2"<<std::endl;
+            sleep(1);
+        }
+    }
     std::cout<<"Abriu a memoria compartilhada!!!" << endl;
     cout.flush();
 
-    /**============================================**/
-    int labirinto[TAMANHO_LAB][TAMANHO_LAB];
-    Position *caminho, *pos_init, *pos_end;
-
-    int tam_caminho, i, l, *movimentos;
-
-    pos_init = pos_make(9,9);
-    pos_end = pos_make(2,7);
-
-
-    /**============
-        LARGURA
-    ==============**/
-
-    printf("\n============\n LARGURA\n============\n");
-
-    for(i = 0; i < TAMANHO_LAB; i++)
-    {
-        for(l = 0; l < TAMANHO_LAB; l++)
-        {
-            labirinto[i][l] = 0;
-        }
-    }
-
-    labirinto[0][4] = 1;
-    labirinto[1][4] = 1;
-    labirinto[2][4] = 1;
-    labirinto[3][4] = 1;
-    labirinto[4][4] = 1;
-    labirinto[5][4] = 1;
-    labirinto[pos_init->x][pos_init->y] = 2;
-    labirinto[pos_end->x][pos_end->y] = 3;
-
-    print_labirinto(labirinto);
-    cout.flush();
-    printf("chamei busca em largura\n");
-    caminho = busca_largura(labirinto, pos_init, pos_end, &tam_caminho);
-    printf("voltei da busca em largura\n");
-    movimentos = new int[tam_caminho*3];
-    movimentos = get_moves(caminho, tam_caminho);
-    printf("sai busca\n");
-    printf("tamanho do caminho é: %d\n", tam_caminho);
-
-    for(i = 0; i < tam_caminho; i++)
-    {
-        printf("X: %d, Y: %d\n",caminho[i].x,caminho[i].y);
-    }
-    print_labirinto(labirinto);
-    cout.flush();
-
-
-
-    /**============
-        A ESTRELA
-    ==============*
-
-    printf("\n============\n A ESTRELA\n============\n");
-
-
-    for(i = 0; i < TAMANHO_LAB; i++)
-    {
-        for(l = 0; l < TAMANHO_LAB; l++)
-        {
-            labirinto[i][l] = 0;
-        }
-    }
-
-    labirinto[0][4] = 1;
-    labirinto[1][4] = 1;
-    labirinto[2][4] = 1;
-    labirinto[3][4] = 1;
-    labirinto[4][4] = 1;
-    labirinto[5][4] = 1;
-    labirinto[pos_init->x][pos_init->y] = 2;
-    labirinto[pos_end->x][pos_end->y] = 3;
-
-    print_labirinto(labirinto);
-    cout.flush();
-    printf("chamei busca A Estrela\n");
-    caminho = busca_aestrela(labirinto, pos_init, pos_end, &tam_caminho);
-    printf("sai busca\n");
-    printf("tamanho do caminho é: %d\n", tam_caminho);
-
-    for(i = 0; i < tam_caminho; i++)
-    {
-        printf("X: %d, Y: %d\n",caminho[i].x,caminho[i].y);
-    }
-    print_labirinto(labirinto);
-    cout.flush();
-
-    //delete(caminho);
-    /**==========================================================**/
-
-
-    /**============================================**/
-
-
-    /**============================================**/
-
-
     printf("começando controle\n");
-
-
-    /****/
-    int qnt_caminho = 5;
-    cout.flush();
-    int caminho_atual = 0;
-    /****/
-
-    int controle = 0;
-    while(controle <= 2)
+    int movimento_atual = 0;
+    while(movimentos[movimento_atual] != -1)
     {
         pair<int*, managed_shared_memory::size_type> comando2;
         comando2 = abrindo_memoria->find<int>(NOME_DO_INT_NA_MEMORIA2);
 
-
         cout << "8)Frente" << endl << "6)Direita " << endl << "4)Esquerda" << endl;
-        cin >> (*comando1);
+//        cin >> (*comando1);
 
-        /****/
-        printf("\n Executando comando: %d .\n", caminho[caminho_atual]);
-        (*comando1) << caminho[caminho_atual];
-        *comando1 = caminho[caminho_atual];
-        std::cout << *comando1 << endl;
-        caminho[caminho_atual] >> *comando1;
-        std::cout << *comando1 << endl;
-        caminho_atual++;
-        /****/
+        printf("Executando movimento: %d\n",movimentos[movimento_atual]);
+        *comando1 = movimentos[movimento_atual];
+        movimento_atual++;
 
         shared_memory_object::remove(NOME_DA_MEMORIA);
-        sleep(5);
+        sleep(6);
     }
-
+    printf("Destino alcançado com sucesso!\n");
     std::cout<<"Terminou!!" << endl;
     cout.flush();
     return 0;
