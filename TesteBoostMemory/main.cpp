@@ -183,6 +183,7 @@ int main()
         }
     }
     std::cout<<"Abriu a memoria compartilhada!!!" << endl;
+    sleep(4);
     cout.flush();
 
     printf("começando controle\n");
@@ -200,7 +201,7 @@ int main()
         movimento_atual++;
 
         shared_memory_object::remove(NOME_DA_MEMORIA);
-        sleep(6);
+        sleep(12);
     }
     printf("Destino alcançado com sucesso!\n");
     std::cout<<"Terminou!!" << endl;

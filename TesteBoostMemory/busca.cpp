@@ -170,13 +170,12 @@ int* get_moves(Position* caminho, int tam_caminho)
 
     for(i = 1; i < tam_caminho; i++)
     {
-
         ind_vizinhos = 0 ;
         while(caminho[i].x != robo.olhando->x || caminho[i].y != robo.olhando->y)
         {
             if(ind_vizinhos > 3)
             {
-                printf("Caminho quebrado");
+                printf("Caminho quebrado | ");
                 break;
             }
 
@@ -208,10 +207,19 @@ int* get_moves(Position* caminho, int tam_caminho)
             }
 
             ind_vizinhos++;
-            movimentos[ind_movimentos] = 4;
-            ind_movimentos++;
         }
 
+        switch(ind_vizinhos){
+            case 1:
+                movimentos[ind_movimentos] = 4;
+                ind_movimentos++;
+                break;
+            case 3:
+                movimentos[ind_movimentos] = 6;
+                ind_movimentos++;
+                break;
+
+        }
         diferencaX = robo.in->x - robo.olhando->x;
         diferencaY = robo.in->y - robo.olhando->y;
 
@@ -223,6 +231,8 @@ int* get_moves(Position* caminho, int tam_caminho)
 
         movimentos[ind_movimentos] = 8;
         ind_movimentos++;
+
+
     }
     movimentos[ind_movimentos] = -1;
     return movimentos;
